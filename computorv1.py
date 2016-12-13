@@ -5,6 +5,7 @@ from solver import solve_zero, solve_one, solve_two
 
 def computor():
 	equation = parser()
+	print equation
 	degree = reduce_eq(equation)
 	if degree == 0:
 		solve_zero(equation)

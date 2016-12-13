@@ -12,6 +12,8 @@ def str_to_polys(instr):
 		if ('*' in s and not 'x' in s) or '/' in s:
 			print "Operation Not Supported"
 			sys.exit(0)
+		if not s:
+			arr.remove(s)
 	ret = [[float(str_helper(i)) for i in x.split('x')] for x in arr]
 	return ret
 

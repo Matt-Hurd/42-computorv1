@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import sys
 from ft_math import baby_sqrt
 
@@ -24,11 +25,19 @@ def solve_two(equation):
 	a = equation[0][1][0]
 	b = equation[0][0][0]
 	c = equation[1][0][0] * -1
-	if (b * b - 4 * a * c) < 0:
-		print "No Real Solutions"
+	inner = b * b - 4 * a * c
+	if (inner) < 0:
+		disc = baby_sqrt(-inner)
+		print "Discriminant is negative, the two complex solutions are:"
+		print "%g ± %g𝓲" % (-b / (2 * a), disc / (2 * a))
 		sys.exit(0)
-	x1 = (-b + baby_sqrt(b * b - 4 * a * c)) / (2 * a)
-	x2 = (-b - baby_sqrt(b * b - 4 * a * c)) / (2 * a)
-	print "Discriminant is strictly positive, the two solutions are:"
-	print "%g" % x1
-	print "%g" % x2
+	elif inner != 0:
+		x1 = (-b + baby_sqrt(inner)) / (2 * a)
+		x2 = (-b - baby_sqrt(inner)) / (2 * a)
+		print "Discriminant is strictly positive, the two solutions are:"
+		print "%g" % x1
+		print "%g" % x2
+	else:
+		x = (-b + baby_sqrt(inner)) / (2 * a)
+		print "Discriminant is 0, the two solution is:"
+		print "%g" % x

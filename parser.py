@@ -14,18 +14,26 @@ def str_to_polys(instr):
 			sys.exit(0)
 		if not s:
 			arr.remove(s)
-	ret = [[float(str_helper(i)) for i in x.split('x')] for x in arr]
+	try:
+		ret = [[float(str_helper(i)) for i in x.split('x')] for x in arr]
+	except:
+		return 0
 	return ret
 
-def parser():
-	if len(sys.argv) != 2:
-		print "Invalid number of arguments"
-		sys.exit(0)
-	inputstr = sys.argv[1]
-	if len(inputstr.split('=')) != 2:
+valid = '0123456789-.xX^=+-'
+
+def parser(instr):
+	if len(instr.split('=')) != 2:
 		print "Invalid equation"
-		sys.exit(0)
-	split = inputstr.split('=')
+		return 0
+	for letter in instr:
+		if not letter in valid:
+			print "Invalid equation"
+			return 0
+	split = instr.split('=')
 	left = str_to_polys(split[0])
 	right = str_to_polys(split[1])
+	if not left or not right:
+		print "Invalid equation"
+		return 0
 	return (left, right)

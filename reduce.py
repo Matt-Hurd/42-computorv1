@@ -1,9 +1,5 @@
 from printer import print_eq
 
-def sort(equation):
-	#later I guess
-	pass
-
 def one_side(equation):
 	for side in equation:
 		for x in range(len(side)):
@@ -18,25 +14,30 @@ def one_side(equation):
 				side.remove(x)
 	left, right = equation
 	while len(right):
+		rem = []
 		for polyR in right:
 			found = 0
 			for polyL in left:
-				if polyR[1] == polyL[1]:
+				if polyR[1] == polyL[1] and not found:
 					polyL[0] -= polyR[0]
-					right.remove(polyR)
+					rem.append(polyR)
 					found = 1
 			if not found:
 				polyR[0] *= -1
 				left.append(polyR)
-				right.remove(polyR)
+				rem.append(polyR)
+		for a in rem:
+			right.remove(a)
+	rem = []
 	for polyL in left:
 		if polyL[1] == 0:
 			polyL[0] *= -1
 			right.append(polyL)
-			left.remove(polyL)
-		if polyL[0] == 0:
-			left.remove(polyL)
-	sort(equation)
+			rem.append(polyL)
+		elif polyL[0] == 0 and polyL in left:
+			rem.append(polyL)
+	for a in rem:
+		left.remove(a)
 	print_eq(equation)
 
 def simplify(equation):
@@ -55,14 +56,11 @@ def simplify(equation):
 	for side in equation:
 		for poly in side:
 			poly[1] -= minimum
-	return maximum
+	return maximum - minimum
 
 def reduce_eq(equation):
 	simplify(equation)
 	one_side(equation)
 	maximum = simplify(equation)
 	print "Polynomial Degree:", int(maximum)
-	if int(maximum) > 2:
-		print "The polynomial degree is stricly greater than 2, I can't solve."
-		sys.exit(0)
 	return int(maximum)

@@ -1,4 +1,5 @@
 import sys
+import re
 
 def str_helper(instr):
 	instr = instr.replace("^", '').replace('*', '')
@@ -20,16 +21,14 @@ def str_to_polys(instr):
 		return 0
 	return ret
 
-valid = '0123456789-.xX^=+-'
-
 def parser(instr):
-	if len(instr.split('=')) != 2:
-		print "Invalid equation"
+	if instr.count("=") != 1:
+		print "Invalid Number of Equal Signs"
 		return 0
-	for letter in instr:
-		if not letter in valid:
-			print "Invalid equation"
-			return 0
+	instr = instr.replace(' ', '').replace('*', '')
+	if not re.match(r"^(\d*.{0,1}\d*(X{0,1}(\^\d+){0,1}){0,1}[+=\-*]{0,1})+$", instr):
+		print "Invalid input string"
+		return 0
 	split = instr.split('=')
 	left = str_to_polys(split[0])
 	right = str_to_polys(split[1])

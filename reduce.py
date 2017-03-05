@@ -1,6 +1,6 @@
 from printer import print_eq
 
-def one_side(equation):
+def one_side(equation, derivative):
 	for side in equation:
 		for x in range(len(side)):
 			for y in range(len(side)):
@@ -38,7 +38,7 @@ def one_side(equation):
 			rem.append(polyL)
 	for a in rem:
 		left.remove(a)
-	print_eq(equation)
+	print_eq(equation, derivative)
 
 def simplify(equation):
 	minimum = 3
@@ -58,9 +58,9 @@ def simplify(equation):
 			poly[1] -= minimum
 	return maximum - minimum
 
-def reduce_eq(equation):
+def reduce_eq(equation, derivative):
 	simplify(equation)
-	one_side(equation)
+	one_side(equation, derivative)
 	maximum = simplify(equation)
 	print "Polynomial Degree:", int(maximum)
 	return int(maximum)

@@ -3,7 +3,7 @@ import sys
 from ft_math import baby_sqrt
 
 def solve_zero(equation):
-	print "The solution is:"
+	print "The solution is:",
 	if not equation[1] or equation[1][0][0] == 0:
 		print "All Real Numbers"
 	else:
@@ -11,13 +11,13 @@ def solve_zero(equation):
 
 
 def solve_one(equation):
-	print "The solution is:"
+	print "The solution is:",
 	if not equation[1]:
 		print "0"
 	else:
 		print "%g" % (equation[1][0][0] / equation[0][0][0])
 
-def solve_two(equation):
+def solve_two(equation, disc=False):
 	#assuming it's sorted (bx^1 + ax^2 = cx^0)
 	a = 0
 	b = 0
@@ -34,14 +34,16 @@ def solve_two(equation):
 			elif poly[1] == 2:
 				a = poly[0]
 	inner = b * b - 4 * a * c
+	if disc:
+		print "Discriminant:", inner
 	if (inner) < 0:
 		disc = baby_sqrt(-inner)
-		print "The two complex solutions are:"
+		print "Discriminant is strictly negative, the two complex solutions are:"
 		print "%g ± %g𝓲" % (-b / (2 * a), disc / (2 * a))
 	elif inner != 0:
 		x1 = (-b + baby_sqrt(inner)) / (2 * a)
 		x2 = (-b - baby_sqrt(inner)) / (2 * a)
-		print "The two solutions are:"
+		print "Discriminant is strictly positive, the two solutions are:"
 		print "%g" % x1
 		print "%g" % x2
 	else:

@@ -1,1 +1,4 @@
 *.pyc
+scale.txt
+.*
+ruby/

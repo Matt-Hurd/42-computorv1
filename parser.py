@@ -26,7 +26,7 @@ def parser(instr):
 		print "Invalid Number of Equal Signs"
 		return 0
 	instr = instr.replace(' ', '').replace('*', '')
-	if not re.match(r"^(\d*.{0,1}\d*(X{0,1}(\^\d+){0,1}){0,1}[+=\-*]{0,1})+$", instr):
+	if not re.match(r"^((?:(?:\d+)(\.\d+)?)?(?:X(?:\^\d+)?)?(\+|=|-|$))+$", instr):
 		print "Invalid input string"
 		return 0
 	split = instr.split('=')

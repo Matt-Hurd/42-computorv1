@@ -4,7 +4,7 @@ from reduce import reduce_eq
 from solver import solve_zero, solve_one, solve_two
 import sys
 
-def computor(instr, derivative, disc=False):
+def computor(instr, derivative=False, disc=False):
 	equation = parser(instr)
 	if not equation:
 		return ;
@@ -24,7 +24,27 @@ def computor(instr, derivative, disc=False):
 def print_usage():
 	print "usage: %s [-di] [expression]" % sys.argv[0]
 
+def test():
+	strs = [
+	"5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0",
+	"5 * X^0 + 4 * X^1 = 4 * X^0",
+	"8 * X^0 - 6 * X^1 + 0 * X^2 - 5.6 * X^3 = 3 * X^0",
+	"5 + 4 * X + X^2= X^2",
+	"5 * X ^ 0 = 5 * X ^ 0",
+	"5 * X ^ 0 = 4 * X ^ 0 + 7 * X ^ 1",
+	"5 * X ^ 0 + 13 * X ^ 1 + 3 * X ^ 2 = 1 * X ^ 0 + 1 * X ^ 1",
+	"5 * X ^ 0 + 3 * X ^ 1 + 3 * X ^ 2 = 1 * X ^ 0 + 0 * X ^ 1"
+	]
+	for s in strs:
+		print "Test input:", s
+		computor(s)
+		print ""
+
 if __name__ == "__main__":
+	if len(sys.argv) == 1:
+		print "No args given, running tests"
+		test()
+		sys.exit(0)
 	derivative = False
 	discriminant = False
 	if len(sys.argv) not in range(2,4):
